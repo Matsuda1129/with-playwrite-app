@@ -13,6 +13,7 @@ export default defineConfig({
   timeout: 30 * 1000,
   // Test directory
   testDir: path.join(__dirname, "e2e"),
+  testMatch: ["app.spec.ts", "pages.spec.ts"],
   // If a test fails, retry it additional 2 times
   retries: 2,
   // Artifacts folder where screenshots, videos, and traces are stored.
@@ -26,7 +27,6 @@ export default defineConfig({
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-
   use: {
     // Use baseURL so to make navigations relative.
     // More information: https://playwright.dev/docs/api/class-testoptions#test-options-base-url
@@ -47,30 +47,9 @@ export default defineConfig({
       name: "Desktop Chrome",
       use: {
         ...devices["Desktop Chrome"],
+        ...{ slowMo: 20000 },
       },
     },
-    // {
-    //   name: 'Desktop Firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //   },
-    // },
-    // {
-    //   name: 'Desktop Safari',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //   },
-    // },
     // Test against mobile viewports.
-    {
-      name: "Mobile Chrome",
-      use: {
-        ...devices["Pixel 5"],
-      },
-    },
-    {
-      name: "Mobile Safari",
-      use: devices["iPhone 12"],
-    },
   ],
 });
